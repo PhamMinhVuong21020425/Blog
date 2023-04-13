@@ -4,7 +4,11 @@ const morgan = require('morgan')
 const handlebars = require('express-handlebars')
 
 const app = express()
-const port = 3001
+
+require('dotenv').config();
+
+// Nếu process.env.PORT không được định nghĩa (undefined) thì sẽ lấy giá trị là 8080
+const port = process.env.PORT || 8080; 
 
 app.use(morgan('tiny'))
 
