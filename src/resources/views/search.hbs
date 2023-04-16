@@ -1,4 +1,4 @@
-<form method="post">
+<form method="GET">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -13,4 +13,16 @@
             for="exampleCheck1">Check me out</label>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<form method="POST" class="mt-4">
+    <label for="gender-input" class="form-label">Gender</label>
+    <select name="gender" class="form-control border" id="gender-input">
+        <option value="">--Chọn giới tính--</option>
+        <option value="Male">Nam</option>
+        <option value="Female">Nữ</option>
+    </select>
+
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+
 </form>

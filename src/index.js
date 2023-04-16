@@ -12,12 +12,15 @@ const port = process.env.PORT || 8080;
 
 
 // HTTP logger
-app.use(morgan('tiny'))
+//app.use(morgan('tiny'))
 
 
 app.use('/static', express.static(path.join(__dirname, 'public')))
 
 console.log('PATH OF DIRNAME: ', path.join(__dirname, 'public'));
+
+app.use(express.urlencoded({extended: true}));
+app.use(express.json())
 
 //app đang sử dụng template engine là handlebars bằng function handlebars()
 app.engine('.hbs', handlebars.engine(
@@ -38,7 +41,9 @@ app.set('views', path.join(__dirname, 'resources/views'));
 
 app.get('/', function (req, res) {
   // mặc định tìm đến thư mục /views và render file home.handlebars
-   res.render('home')
+  res.render('home')
+  //res.sendStatus(200)
+  //res.status(200).send('Connect success...')
 })
 
 app.get('/news', function (req, res) {
@@ -48,8 +53,14 @@ app.get('/news', function (req, res) {
 
 app.get('/search', function (req, res) {
   // mặc định tìm đến thư mục views để lấy và render file search.handlebars
-   console.log("QUERY: " + req.query.q);
+   console.log("QUERY GET: " + req.query.q);
    res.render('search')
+})
+
+app.post('/search', function (req, res) {
+  // mặc định tìm đến thư mục views để lấy và render file search.handlebars
+   console.log("QUERY POST GENDER: " + req.body.gender);
+   res.render('home')
 })
 
 app.listen(port, () => {
