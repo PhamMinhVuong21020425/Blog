@@ -10,7 +10,14 @@ require('dotenv').config();
 // Nếu process.env.PORT không được định nghĩa (undefined) thì sẽ lấy giá trị là 8080
 const port = process.env.PORT || 8080; 
 
+
+// HTTP logger
 app.use(morgan('tiny'))
+
+
+app.use('/static', express.static(path.join(__dirname, 'public')))
+
+console.log('PATH OF DIRNAME: ', path.join(__dirname, 'public'));
 
 //app đang sử dụng template engine là handlebars bằng function handlebars()
 app.engine('.hbs', handlebars.engine(
