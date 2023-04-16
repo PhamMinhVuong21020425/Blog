@@ -42,8 +42,14 @@ app.get('/', function (req, res) {
 })
 
 app.get('/news', function (req, res) {
-  // mặc định tìm đến thư mục views và render file home.handlebars
+  // mặc định tìm đến thư mục views để lấy file news.handlebars
    res.render('news')
+})
+
+app.get('/search', function (req, res) {
+  // mặc định tìm đến thư mục views để lấy và render file search.handlebars
+   console.log("QUERY: " + req.query.q);
+   res.render('search')
 })
 
 app.listen(port, () => {

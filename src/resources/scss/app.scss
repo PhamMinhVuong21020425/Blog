@@ -1,11 +1,9 @@
-@import 'variables';
-h1 {
-    color: $red-color;
-    border: 1px solid;
-    position: relative;
+            @import 'variables';
+                h2 {
+         color: green;
+            border: 2px solid;
 }
 
-h2 {
-    color: green;
-    border: 2px solid;
+            .padding {
+      padding: 5%;
 }
