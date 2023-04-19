@@ -1,1 +1,23 @@
-<h1>Home</h1>
+<h1>HOME PAGE</h1>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            {{#each columnName}}
+            <th scope="col">{{this}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each dataUser}}
+        <tr>
+            <th scope="row">{{this.id}}</th>
+            <td>{{this.name}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.password}}</td>
+            <td>{{this.image}}</td>
+            <td>{{this.gender}}</td>
+            <td>{{this.remember}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -20,9 +20,6 @@ app.use('/static', express.static(path.join(__dirname, 'public')))
 
 console.log('PATH OF DIRNAME: ', path.join(__dirname, 'public'));
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json())
-
 //app đang sử dụng template engine là handlebars bằng function handlebars()
 app.engine('.hbs', handlebars.engine(
   //config handlebars
@@ -37,6 +34,9 @@ app.set('view engine', '.hbs');
 
 //set đường dẫn để thư viện handlebar tìm đến dirname
 app.set('views', path.join(__dirname, 'resources/views'));
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
 
 //Handle routers
 route(app);

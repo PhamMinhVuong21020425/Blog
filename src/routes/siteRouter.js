@@ -5,4 +5,6 @@ const router = express.Router();
 
 router.get('/', siteController.home);
 
+router.get('/users/:userID', siteController.users);
+
 module.exports = router;

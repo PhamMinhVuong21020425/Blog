@@ -1,28 +1,26 @@
-<form method="GET">
+<form action="/search" method="POST">
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Email address</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+        <input type="email" class="form-control" id="exampleInputEmail1" name="email">
+        <div class="form-text">We'll never share your email with anyone else.</div>
     </div>
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>
-        <input type="password" class="form-control" id="exampleInputPassword1">
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
     </div>
-    <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1"> <label class="form-check-label"
-            for="exampleCheck1">Check me out</label>
+    <div class="mb-3">
+        <label for="gender-input" class="form-label">Gender</label>
+        <select name="gender" class="form-control border" id="gender-input">
+            <option value="">--Chọn giới tính--</option>
+            <option value="Male">Nam</option>
+            <option value="Female">Nữ</option>
+        </select>
     </div>
+
+    <div class="mt-4 mb-4 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="remember"> <label
+            class="form-check-label" for="exampleCheck1">Remember me</label>
+    </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-
-<form method="POST" class="mt-4">
-    <label for="gender-input" class="form-label">Gender</label>
-    <select name="gender" class="form-control border" id="gender-input">
-        <option value="">--Chọn giới tính--</option>
-        <option value="Male">Nam</option>
-        <option value="Female">Nữ</option>
-    </select>
-
-    <button type="submit" class="btn btn-primary mt-2">Submit</button>
-
 </form>
