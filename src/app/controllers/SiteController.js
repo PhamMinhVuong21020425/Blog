@@ -39,6 +39,49 @@ class SiteController {
             res.send(results);
         });
     }
+
+    async deleteUser(req, res) {
+        const userID = req.body.id;
+        const pool = require('./ConnectDB');
+        const sql = 'DELETE FROM user WHERE id = ?';
+        await pool.execute(sql, [userID], function (err, results, fields) {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+
+            // Trả về kết quả truy vấn dưới dạng JSON, bao gồm tên cột và dữ liệu
+            res.redirect('/');
+        });
+    }
+    async testPlane(req, res) {
+        const connection = require('./ConnectPlane');
+        const sql = "Select * from Project";
+        await connection.execute(sql, (err, results) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+            res.render('planscale');
+        })
+    }
+
+    async postPlane(req, res) {
+        const connection = require('./ConnectPlane');
+        let { id, user_id, name, status, priority, des, finished_time, started_time } = req.body;
+        const sql = 'INSERT INTO Project VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+        await connection.execute(sql, [id, user_id, name, status, priority, des, finished_time, started_time], (err, results) => {
+            if (err) {
+                console.log(err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
+            res.redirect('/plans');
+        })
+    }
+
 }
 
 module.exports = new SiteController;

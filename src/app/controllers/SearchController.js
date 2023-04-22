@@ -9,7 +9,7 @@ class SearchController {
     async searchPost(req, res) {
         const pool = require('./ConnectDB');
 
-        let { email, password, gender, remember } = req.body;
+        let { email, password, gender, remember = 'off' } = req.body;
 
         if (!email || !password || !gender) {
             res.status(400).send('Bad Request');
@@ -17,14 +17,15 @@ class SearchController {
         }
 
         const sql = 'INSERT INTO user(email, password, gender, remember) VALUES (?, ?, ?, ?)';
-        try {
-            await pool.execute(sql, [email, password, gender, remember]);
+        await pool.execute(sql, [email, password, gender, remember], (err, results) => {
+            if (err) {
+                console.log('ERROR: ' + err);
+                res.status(500).send('Internal Server Error');
+                return;
+            }
             console.log("QUERY POST: " + JSON.stringify(req.body));
             res.redirect('/');
-        } catch (err) {
-            console.log("ERROR: " + err);
-            res.status(500).send('Internal Server Error');
-        }
+        });
     }
 }
 
