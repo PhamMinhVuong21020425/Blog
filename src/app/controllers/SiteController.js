@@ -2,6 +2,15 @@
 class SiteController {
     // GET /
     async home(req, res) {
+        var session = req.session;
+        console.log('SESSIONID: ', session);
+        console.log('COOKIE: ', req.cookies);
+        //console.log('Signed Cookies: ', req.signedCookies);
+        const isLoggedIn = req.cookies[session.email];
+        if(!isLoggedIn) {
+            res.redirect('/login');
+            return;
+        }
         const pool = require('./ConnectDB');
         const sql = 'SELECT * FROM user';
         await pool.execute(sql, function (err, results, fields) {
@@ -15,11 +24,15 @@ class SiteController {
             const columnName = fields.map(field => field.name)
             const dataUser = results.map(result => result)
 
-            // Trả về kết quả truy vấn dưới dạng JSON, bao gồm tên cột và dữ liệu
+            // Gửu dữ liệu vừa truy vấn qua home dưới dạng JSON, 
+            // bao gồm tên cột và dữ liệu
             res.render('home', { columnName, dataUser });
+            // Lưu một cookie có tên 'username' với giá trị 'John'
+            //res.cookie('username', 'John');
+
+            // Trả về phản hồi HTTP
+            //res.send('Cookie saved');
         });
-        // mặc định tìm đến thư mục /views và render file home.handlebars
-        //res.render('home')
         //res.sendStatus(200)
         //res.status(200).send('Connect success...')
     }

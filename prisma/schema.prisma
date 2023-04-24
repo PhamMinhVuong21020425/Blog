@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model course {
+  id          Int     @id @default(autoincrement())
+  title       String? @db.VarChar(255)
+  description String? @db.LongText
+  image       String? @db.LongText
+}
+
+model user {
+  id       Int           @id @default(autoincrement())
+  name     String?       @db.VarChar(100)
+  email    String?       @db.VarChar(150)
+  password String?       @db.VarChar(255)
+  image    String?       @db.LongText
+  gender   user_gender?
+  remember user_remember @default(off)
+}
+
+model task {
+  task_id     Int            @id
+  task_name   String         @db.VarChar(150)
+  description String?        @db.LongText
+  start_date  DateTime?      @db.DateTime(0)
+  finish_date DateTime?      @db.DateTime(0)
+  status      task_status?
+  priority    task_priority?
+}
+
+model sessions {
+  session_id String  @id @db.VarChar(128)
+  userId     Int
+  expires    Int     @db.UnsignedInt
+  data       String? @db.LongText
+}
+
+enum user_gender {
+  Male
+  Female
+}
+
+enum user_remember {
+  on
+  off
+}
+
+enum task_status {
+  NOT_STARTED
+  STOPPED
+  INPROGRESS
+  COMPLETED
+}
+
+enum task_priority {
+  LOW
+  MEDIUM
+  HIGH
+}
