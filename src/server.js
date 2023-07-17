@@ -3,10 +3,12 @@ const session = require('express-session');
 const parseurl = require('parseurl');
 const path = require('path');
 const morgan = require('morgan');
-const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto');
+const Handlebars = require('handlebars');
+const handlebarsReact = require('handlebars-react');
 const MySQLStore = require('express-mysql-session')(session);
+import configViewEngine from './config/viewEngine';
 const app = express();
 
 require('dotenv').config();
@@ -18,6 +20,8 @@ const route = require('./routes/index')
 
 // HTTP logger
 //app.use(morgan('tiny'))
+
+configViewEngine(app);
 
 app.use(cookieParser());
 
@@ -70,21 +74,6 @@ app.use(function (req, res, next) {
   console.log('PAGE VIEWS: ', req.session.views[pathname])
   next()
 })
-
-//app đang sử dụng template engine là handlebars bằng function handlebars()
-app.engine('.hbs', handlebars.engine(
-  //config handlebars
-  {
-    defaultLayout: 'main',
-    extname: '.hbs'
-  }
-));
-
-//đặt cho app sử dụng view engine handlebars
-app.set('view engine', '.hbs');
-
-//set đường dẫn để thư viện handlebar tìm đến dirname
-app.set('views', path.join(__dirname, 'resources/views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json())
